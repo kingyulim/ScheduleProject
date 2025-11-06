@@ -1,8 +1,10 @@
 package com.scheduleproject.Service;
 
 import com.scheduleproject.Dto.Request.CreateScheduleRequest;
+import com.scheduleproject.Dto.Request.UpdateScheduleRequest;
 import com.scheduleproject.Dto.Response.CreateScheduleResponse;
 import com.scheduleproject.Dto.Response.GetScheduleResponse;
+import com.scheduleproject.Dto.Response.UpdateScheduleResponse;
 import com.scheduleproject.Entity.Schedule;
 import com.scheduleproject.Repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
@@ -84,5 +86,35 @@ public class ScheduleService {
                         s.getModifiedDateTime()
                 ))
                 .toList();
+    }
+
+    /**
+     * 일정 업데이트
+     * @param numId 생성된 일정 번호 파라미터
+     * @param updateScheduleRequest 입력값 파라미터
+     * @return 업데이트된 내용 API 반환
+     */
+    @Transactional
+    public UpdateScheduleResponse updateSchedule(Long numId, UpdateScheduleRequest updateScheduleRequest) {
+        Schedule schedule = scheduleRepository.findById(numId).orElseThrow(
+                () -> new IllegalStateException("번호에 해당되는 일정이 없습니다.")
+        );
+
+        if(!schedule.getPassword().equals(updateScheduleRequest.getPassword())) {
+            throw new IllegalStateException("비밀번호가 틀립니다.");
+        }
+
+        schedule.scheduleUpdate(
+                updateScheduleRequest.getWriTitle(),
+                updateScheduleRequest.getWriName()
+        );
+
+        return new UpdateScheduleResponse(
+                schedule.getNumId(),
+                schedule.getWriTitle(),
+                schedule.getWriContent(),
+                schedule.getWriName(),
+                schedule.getModifiedDateTime()
+        );
     }
 }

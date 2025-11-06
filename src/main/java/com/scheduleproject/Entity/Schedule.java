@@ -32,4 +32,9 @@ public class Schedule extends Datetime {
         this.wriName = wriNameParm;
         this.password = passwordParm;
     }
+
+    public void scheduleUpdate(String wriTitleParm, String wriNameParm) {
+        this.wriTitle = wriTitleParm;
+        this.wriContent = wriNameParm;
+    }
 }

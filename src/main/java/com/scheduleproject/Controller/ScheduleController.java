@@ -1,8 +1,10 @@
 package com.scheduleproject.Controller;
 
 import com.scheduleproject.Dto.Request.CreateScheduleRequest;
+import com.scheduleproject.Dto.Request.UpdateScheduleRequest;
 import com.scheduleproject.Dto.Response.CreateScheduleResponse;
 import com.scheduleproject.Dto.Response.GetScheduleResponse;
+import com.scheduleproject.Dto.Response.UpdateScheduleResponse;
 import com.scheduleproject.Service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -45,5 +47,16 @@ public class ScheduleController {
     @GetMapping("/schedules")
     public ResponseEntity<List<GetScheduleResponse>> getSchedules(@RequestParam(required = false) String wriName){
         return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getSchedules(wriName));
+    }
+
+    /**
+     * 일정 업데이트
+     * @param numId 일정 번호 파라미터
+     * @param updateScheduleRequest 입력된 값 파라미터
+     * @return 검사된 데이터 반환
+     */
+    @PutMapping("/schedules/{numId}")
+    public ResponseEntity<UpdateScheduleResponse> updateSchedule(@PathVariable("numId") Long numId, @RequestBody UpdateScheduleRequest updateScheduleRequest){
+        return ResponseEntity.status(HttpStatus.OK).body(scheduleService.updateSchedule(numId, updateScheduleRequest));
     }
 }
