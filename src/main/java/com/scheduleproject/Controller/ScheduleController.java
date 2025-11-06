@@ -1,6 +1,7 @@
 package com.scheduleproject.Controller;
 
 import com.scheduleproject.Dto.Request.CreateScheduleRequest;
+import com.scheduleproject.Dto.Request.DeleteScheduleRequest;
 import com.scheduleproject.Dto.Request.UpdateScheduleRequest;
 import com.scheduleproject.Dto.Response.CreateScheduleResponse;
 import com.scheduleproject.Dto.Response.GetScheduleResponse;
@@ -58,5 +59,18 @@ public class ScheduleController {
     @PutMapping("/schedules/{numId}")
     public ResponseEntity<UpdateScheduleResponse> updateSchedule(@PathVariable("numId") Long numId, @RequestBody UpdateScheduleRequest updateScheduleRequest){
         return ResponseEntity.status(HttpStatus.OK).body(scheduleService.updateSchedule(numId, updateScheduleRequest));
+    }
+
+    /**
+     * 일정 삭제
+     * @param numId 일정 번호 파라미터
+     * @param deleteScheduleRequest  입력된 값 파라미터
+     * @return 검사된 데이터 반환
+     */
+    @DeleteMapping("/schedules/{numId}")
+    public ResponseEntity<Void> deleteSchedule(@PathVariable("numId") Long numId, DeleteScheduleRequest deleteScheduleRequest){
+        scheduleService.deleteSchedule(numId, deleteScheduleRequest);
+        
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
