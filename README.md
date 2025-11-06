@@ -1,6 +1,6 @@
 # 일정 관리 API 명세서 & ERD
 
-> 레벨 요구사항(Lv 1 ~ Lv 4)을 기반으로 한 API 명세서와 ERD(Json 스키마 및 SQL DDL 포함).
+> 레벨 요구사항(Lv 1 ~ Lv 4)을 기반으로 한 API 명세서와 ERD
 
 ---
 
@@ -20,10 +20,10 @@
 ### Schedule (일정)
 
 * `num_id` : BIGINT, PK, AUTO_INCREMENT — 각 일정의 고유 ID
-* `wri_title` : VARCHAR(255) — 일정 제목 (수정 가능)
+* `wri_title` : VARCHAR(50) — 일정 제목 (수정 가능)
 * `wri_content` : TEXT — 일정 내용
-* `wri_name` : VARCHAR(100) — 작성자명 (수정 가능)
-* `password` : VARCHAR(255) — 일정 비밀번호(해시 저장)
+* `wri_name` : VARCHAR(20) — 작성자명 (수정 가능)
+* `password` : VARCHAR(20) — 일정 비밀번호
 * `created_date_time` : DATETIME/TIMESTAMP — 작성일 (JPA Auditing으로 자동 세팅)
 * `modified_date_time` : DATETIME/TIMESTAMP — 수정일 (JPA Auditing으로 자동 세팅)
 
@@ -39,10 +39,10 @@
 ```sql
 CREATE TABLE schedules (
   num_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  wri_title VARCHAR(255) NOT NULL,
+  wri_title VARCHAR(50) NOT NULL,
   wri_content TEXT NOT NULL,
-  wri_name VARCHAR(100) NOT NULL,
-  password VARCHAR(255) NOT NULL,
+  wri_name VARCHAR(20) NOT NULL,
+  password VARCHAR(20) NOT NULL,
   created_date_time DATETIME NOT NULL,
   modified_date_time DATETIME NOT NULL,
   INDEX idx_wri_name (wri_name)
@@ -58,10 +58,10 @@ CREATE TABLE schedules (
 |          schedules          |
 +-----------------------------+
 | num_id   (PK) BIGINT        |
-| wri_title VARCHAR(255)      |
+| wri_title VARCHAR(50)       |
 | wri_content TEXT            |
-| wri_name  VARCHAR(100)      |
-| password VARCHAR(255)       |
+| wri_name  VARCHAR(20)       |
+| password VARCHAR(20)        |
 | created_date_time DATETIME  |
 | modified_date_time DATETIME |
 +-----------------------------+
